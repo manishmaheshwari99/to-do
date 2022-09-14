@@ -11,7 +11,10 @@
 </template>
 
 <script>
+
 import { mapActions } from 'vuex';
+import { createToast } from 'mosha-vue-toastify';
+
   export default {
     name: "AddTodo",
     data() {
@@ -22,7 +25,14 @@ import { mapActions } from 'vuex';
     methods: {
       ...mapActions(['addTodo']),
       onSubmit() {
-        this.addTodo(this.title);
+        if (this.title.length > 2) {
+          this.addTodo(this.title);
+        }
+        else {
+          createToast({ title: 'Title should be minimum of 3 letters' },
+        { type: 'info', }
+      )
+        }
       }
     }
   }
